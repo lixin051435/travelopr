@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.mapper.TgroupMapper">
+   
+    <resultMap type="Tgroup" id="TgroupResultMap">
+        <id property="id" column="id"/>
+        <result property="gname" column="gname"/> 
+        <result property="guide" column="guide"/> 
+        <result property="sdate" column="sdate"/> 
+        <result property="edate" column="edate"/> 
+        <result property="guidekey" column="guidekey"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="TgroupResultMap" resultType="Tgroup">
+        select * from Tgroup  
+    </select>
+
+	<select id="findByParam" resultType="java.util.Map" parameterType="java.util.Map" statementType="STATEMENT">
+		select ${cols} from ${tablename}  where 1=1
+           <if test="param!=null"> ${param} </if> 
+           <if test="id!=null"> and id=${id} </if> 
+           <if test="gname!=null"> and gname=${gname} </if> 
+           <if test="guide!=null"> and guide=${guide} </if> 
+           <if test="sdate!=null"> and sdate=${sdate} </if> 
+           <if test="edate!=null"> and edate=${edate} </if> 
+           <if test="guidekey!=null"> and guidekey=${guidekey} </if>
+        order by 
+        ${orderby}
+	</select>
+
+    
+    <insert id="insert">
+    insert into Tgroup(
+      gname,guide,sdate,edate,guidekey
+    )
+    values(
+      #{gname,jdbcType=VARCHAR},#{guide,jdbcType=VARCHAR},#{sdate,jdbcType=VARCHAR},#{edate,jdbcType=VARCHAR},#{guidekey,jdbcType=VARCHAR}
+    )
+    </insert>
+     
+     <update id="update">
+	     update Tgroup
+	     <trim prefix="set" suffixOverrides=",">   
+           <if test="gname!=null">gname=#{gname},</if> 
+           <if test="guide!=null">guide=#{guide},</if> 
+           <if test="sdate!=null">sdate=#{sdate},</if> 
+           <if test="edate!=null">edate=#{edate},</if> 
+           <if test="guidekey!=null">guidekey=#{guidekey},</if> 
+	     </trim>
+         where id=#{id}
+    </update>
+    
+    <delete id="delete">
+    delete from Tgroup where id=#{id}
+    </delete>
+
+</mapper>

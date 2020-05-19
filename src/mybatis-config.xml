@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases> 
+      <typeAlias alias="Article" type="entity.bean.Article"/> 
+      <typeAlias alias="Guides" type="entity.bean.Guides"/> 
+      <typeAlias alias="Hbnews" type="entity.bean.Hbnews"/> 
+      <typeAlias alias="Messages" type="entity.bean.Messages"/> 
+      <typeAlias alias="Mixinfo" type="entity.bean.Mixinfo"/> 
+      <typeAlias alias="Orders" type="entity.bean.Orders"/> 
+      <typeAlias alias="Pinlun" type="entity.bean.Pinlun"/> 
+      <typeAlias alias="Pros" type="entity.bean.Pros"/> 
+      <typeAlias alias="Sysuser" type="entity.bean.Sysuser"/> 
+      <typeAlias alias="Tgroup" type="entity.bean.Tgroup"/> 
+    </typeAliases>
+    <mappers>
+      <mapper resource="entity/mapperxml/Article.xml" /> 
+      <mapper resource="entity/mapperxml/Guides.xml" /> 
+      <mapper resource="entity/mapperxml/Hbnews.xml" /> 
+      <mapper resource="entity/mapperxml/Messages.xml" /> 
+      <mapper resource="entity/mapperxml/Mixinfo.xml" /> 
+      <mapper resource="entity/mapperxml/Orders.xml" /> 
+      <mapper resource="entity/mapperxml/Pinlun.xml" /> 
+      <mapper resource="entity/mapperxml/Pros.xml" /> 
+      <mapper resource="entity/mapperxml/Sysuser.xml" /> 
+      <mapper resource="entity/mapperxml/Tgroup.xml" /> 
+    </mappers>
+</configuration>

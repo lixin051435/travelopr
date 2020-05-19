@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.mapper.MixinfoMapper">
+   
+    <resultMap type="Mixinfo" id="MixinfoResultMap">
+        <id property="id" column="id"/>
+        <result property="mtitle" column="mtitle"/> 
+        <result property="cotitle" column="cotitle"/> 
+        <result property="content" column="content"/> 
+        <result property="infotype" column="infotype"/> 
+        <result property="filename" column="filename"/> 
+        <result property="remo" column="remo"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="MixinfoResultMap" resultType="Mixinfo">
+        select * from Mixinfo  
+    </select>
+
+	<select id="findByParam" resultType="java.util.Map" parameterType="java.util.Map" statementType="STATEMENT">
+		select ${cols} from ${tablename}  where 1=1
+           <if test="param!=null"> ${param} </if> 
+           <if test="id!=null"> and id=${id} </if> 
+           <if test="mtitle!=null"> and mtitle=${mtitle} </if> 
+           <if test="cotitle!=null"> and cotitle=${cotitle} </if> 
+           <if test="content!=null"> and content=${content} </if> 
+           <if test="infotype!=null"> and infotype=${infotype} </if> 
+           <if test="filename!=null"> and filename=${filename} </if> 
+           <if test="remo!=null"> and remo=${remo} </if>
+        order by 
+        ${orderby}
+	</select>
+
+    
+    <insert id="insert">
+    insert into Mixinfo(
+      mtitle,cotitle,content,infotype,filename,remo
+    )
+    values(
+      #{mtitle,jdbcType=VARCHAR},#{cotitle,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{infotype,jdbcType=VARCHAR},#{filename,jdbcType=VARCHAR},#{remo,jdbcType=VARCHAR}
+    )
+    </insert>
+     
+     <update id="update">
+	     update Mixinfo
+	     <trim prefix="set" suffixOverrides=",">   
+           <if test="mtitle!=null">mtitle=#{mtitle},</if> 
+           <if test="cotitle!=null">cotitle=#{cotitle},</if> 
+           <if test="content!=null">content=#{content},</if> 
+           <if test="infotype!=null">infotype=#{infotype},</if> 
+           <if test="filename!=null">filename=#{filename},</if> 
+           <if test="remo!=null">remo=#{remo},</if> 
+	     </trim>
+         where id=#{id}
+    </update>
+    
+    <delete id="delete">
+    delete from Mixinfo where id=#{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.mapper.ArticleMapper">
+   
+    <resultMap type="Article" id="ArticleResultMap">
+        <id property="id" column="id"/>
+        <result property="uname" column="uname"/> 
+        <result property="ytitle" column="ytitle"/> 
+        <result property="content" column="content"/> 
+        <result property="savetime" column="savetime"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="ArticleResultMap" resultType="Article">
+        select * from Article  
+    </select>
+
+	<select id="findByParam" resultType="java.util.Map" parameterType="java.util.Map" statementType="STATEMENT">
+		select ${cols} from ${tablename}  where 1=1
+           <if test="param!=null"> ${param} </if> 
+           <if test="id!=null"> and id=${id} </if> 
+           <if test="uname!=null"> and uname=${uname} </if> 
+           <if test="ytitle!=null"> and ytitle=${ytitle} </if> 
+           <if test="content!=null"> and content=${content} </if> 
+           <if test="savetime!=null"> and savetime=${savetime} </if>
+        order by 
+        ${orderby}
+	</select>
+
+    
+    <insert id="insert">
+    insert into Article(
+      uname,ytitle,content,savetime
+    )
+    values(
+      #{uname,jdbcType=VARCHAR},#{ytitle,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{savetime,jdbcType=VARCHAR}
+    )
+    </insert>
+     
+     <update id="update">
+	     update Article
+	     <trim prefix="set" suffixOverrides=",">   
+           <if test="uname!=null">uname=#{uname},</if> 
+           <if test="ytitle!=null">ytitle=#{ytitle},</if> 
+           <if test="content!=null">content=#{content},</if> 
+           <if test="savetime!=null">savetime=#{savetime},</if> 
+	     </trim>
+         where id=#{id}
+    </update>
+    
+    <delete id="delete">
+    delete from Article where id=#{id}
+    </delete>
+
+</mapper>

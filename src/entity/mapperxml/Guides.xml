@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.mapper.GuidesMapper">
+   
+    <resultMap type="Guides" id="GuidesResultMap">
+        <id property="id" column="id"/>
+        <result property="gno" column="gno"/> 
+        <result property="gname" column="gname"/> 
+        <result property="sex" column="sex"/> 
+        <result property="tel" column="tel"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="GuidesResultMap" resultType="Guides">
+        select * from Guides  
+    </select>
+
+	<select id="findByParam" resultType="java.util.Map" parameterType="java.util.Map" statementType="STATEMENT">
+		select ${cols} from ${tablename}  where 1=1
+           <if test="param!=null"> ${param} </if> 
+           <if test="id!=null"> and id=${id} </if> 
+           <if test="gno!=null"> and gno=${gno} </if> 
+           <if test="gname!=null"> and gname=${gname} </if> 
+           <if test="sex!=null"> and sex=${sex} </if> 
+           <if test="tel!=null"> and tel=${tel} </if>
+        order by 
+        ${orderby}
+	</select>
+
+    
+    <insert id="insert">
+    insert into Guides(
+      gno,gname,sex,tel
+    )
+    values(
+      #{gno,jdbcType=VARCHAR},#{gname,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR},#{tel,jdbcType=VARCHAR}
+    )
+    </insert>
+     
+     <update id="update">
+	     update Guides
+	     <trim prefix="set" suffixOverrides=",">   
+           <if test="gno!=null">gno=#{gno},</if> 
+           <if test="gname!=null">gname=#{gname},</if> 
+           <if test="sex!=null">sex=#{sex},</if> 
+           <if test="tel!=null">tel=#{tel},</if> 
+	     </trim>
+         where id=#{id}
+    </update>
+    
+    <delete id="delete">
+    delete from Guides where id=#{id}
+    </delete>
+
+</mapper>

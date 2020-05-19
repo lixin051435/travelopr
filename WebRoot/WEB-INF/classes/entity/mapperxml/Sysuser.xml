@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.mapper.SysuserMapper">
+   
+    <resultMap type="Sysuser" id="SysuserResultMap">
+        <id property="id" column="id"/>
+        <result property="uname" column="uname"/> 
+        <result property="upass" column="upass"/> 
+        <result property="utype" column="utype"/> 
+        <result property="tname" column="tname"/> 
+        <result property="sfid" column="sfid"/> 
+        <result property="filename" column="filename"/> 
+        <result property="sex" column="sex"/> 
+        <result property="birth" column="birth"/> 
+        <result property="tel" column="tel"/> 
+        <result property="addrs" column="addrs"/> 
+        <result property="email" column="email"/> 
+        <result property="status" column="status"/> 
+        <result property="savetime" column="savetime"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="SysuserResultMap" resultType="Sysuser">
+        select * from Sysuser  
+    </select>
+
+	<select id="findByParam" resultType="java.util.Map" parameterType="java.util.Map" statementType="STATEMENT">
+		select ${cols} from ${tablename}  where 1=1
+           <if test="param!=null"> ${param} </if> 
+           <if test="id!=null"> and id=${id} </if> 
+           <if test="uname!=null"> and uname=${uname} </if> 
+           <if test="upass!=null"> and upass=${upass} </if> 
+           <if test="utype!=null"> and utype=${utype} </if> 
+           <if test="tname!=null"> and tname=${tname} </if> 
+           <if test="sfid!=null"> and sfid=${sfid} </if> 
+           <if test="filename!=null"> and filename=${filename} </if> 
+           <if test="sex!=null"> and sex=${sex} </if> 
+           <if test="birth!=null"> and birth=${birth} </if> 
+           <if test="tel!=null"> and tel=${tel} </if> 
+           <if test="addrs!=null"> and addrs=${addrs} </if> 
+           <if test="email!=null"> and email=${email} </if> 
+           <if test="status!=null"> and status=${status} </if> 
+           <if test="savetime!=null"> and savetime=${savetime} </if>
+        order by 
+        ${orderby}
+	</select>
+
+    
+    <insert id="insert">
+    insert into Sysuser(
+      uname,upass,utype,tname,sfid,filename,sex,birth,tel,addrs,email,status,savetime
+    )
+    values(
+      #{uname,jdbcType=VARCHAR},#{upass,jdbcType=VARCHAR},#{utype,jdbcType=VARCHAR},#{tname,jdbcType=VARCHAR},#{sfid,jdbcType=VARCHAR},#{filename,jdbcType=VARCHAR},#{sex,jdbcType=VARCHAR},#{birth,jdbcType=VARCHAR},#{tel,jdbcType=VARCHAR},#{addrs,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},#{savetime,jdbcType=VARCHAR}
+    )
+    </insert>
+     
+     <update id="update">
+	     update Sysuser
+	     <trim prefix="set" suffixOverrides=",">   
+           <if test="uname!=null">uname=#{uname},</if> 
+           <if test="upass!=null">upass=#{upass},</if> 
+           <if test="utype!=null">utype=#{utype},</if> 
+           <if test="tname!=null">tname=#{tname},</if> 
+           <if test="sfid!=null">sfid=#{sfid},</if> 
+           <if test="filename!=null">filename=#{filename},</if> 
+           <if test="sex!=null">sex=#{sex},</if> 
+           <if test="birth!=null">birth=#{birth},</if> 
+           <if test="tel!=null">tel=#{tel},</if> 
+           <if test="addrs!=null">addrs=#{addrs},</if> 
+           <if test="email!=null">email=#{email},</if> 
+           <if test="status!=null">status=#{status},</if> 
+           <if test="savetime!=null">savetime=#{savetime},</if> 
+	     </trim>
+         where id=#{id}
+    </update>
+    
+    <delete id="delete">
+    delete from Sysuser where id=#{id}
+    </delete>
+
+</mapper>

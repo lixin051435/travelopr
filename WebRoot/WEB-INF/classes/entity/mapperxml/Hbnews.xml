@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.mapper.HbnewsMapper">
+   
+    <resultMap type="Hbnews" id="HbnewsResultMap">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/> 
+        <result property="itype" column="itype"/> 
+        <result property="filename" column="filename"/> 
+        <result property="content" column="content"/> 
+        <result property="savetime" column="savetime"/> 
+        <result property="infotype" column="infotype"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="HbnewsResultMap" resultType="Hbnews">
+        select * from Hbnews  
+    </select>
+
+	<select id="findByParam" resultType="java.util.Map" parameterType="java.util.Map" statementType="STATEMENT">
+		select ${cols} from ${tablename}  where 1=1
+           <if test="param!=null"> ${param} </if> 
+           <if test="id!=null"> and id=${id} </if> 
+           <if test="title!=null"> and title=${title} </if> 
+           <if test="itype!=null"> and itype=${itype} </if> 
+           <if test="filename!=null"> and filename=${filename} </if> 
+           <if test="content!=null"> and content=${content} </if> 
+           <if test="savetime!=null"> and savetime=${savetime} </if> 
+           <if test="infotype!=null"> and infotype=${infotype} </if>
+        order by 
+        ${orderby}
+	</select>
+
+    
+    <insert id="insert">
+    insert into Hbnews(
+      title,itype,filename,content,savetime,infotype
+    )
+    values(
+      #{title,jdbcType=VARCHAR},#{itype,jdbcType=VARCHAR},#{filename,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{savetime,jdbcType=VARCHAR},#{infotype,jdbcType=VARCHAR}
+    )
+    </insert>
+     
+     <update id="update">
+	     update Hbnews
+	     <trim prefix="set" suffixOverrides=",">   
+           <if test="title!=null">title=#{title},</if> 
+           <if test="itype!=null">itype=#{itype},</if> 
+           <if test="filename!=null">filename=#{filename},</if> 
+           <if test="content!=null">content=#{content},</if> 
+           <if test="savetime!=null">savetime=#{savetime},</if> 
+           <if test="infotype!=null">infotype=#{infotype},</if> 
+	     </trim>
+         where id=#{id}
+    </update>
+    
+    <delete id="delete">
+    delete from Hbnews where id=#{id}
+    </delete>
+
+</mapper>

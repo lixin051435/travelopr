@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.mapper.PinlunMapper">
+   
+    <resultMap type="Pinlun" id="PinlunResultMap">
+        <id property="id" column="id"/>
+        <result property="saver" column="saver"/> 
+        <result property="content" column="content"/> 
+        <result property="pid" column="pid"/> 
+        <result property="tablename" column="tablename"/> 
+        <result property="infotitle" column="infotitle"/> 
+        <result property="savetime" column="savetime"/> 
+        <result property="pf" column="pf"/> 
+        <result property="remo" column="remo"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="PinlunResultMap" resultType="Pinlun">
+        select * from Pinlun  
+    </select>
+
+	<select id="findByParam" resultType="java.util.Map" parameterType="java.util.Map" statementType="STATEMENT">
+		select ${cols} from ${tablename}  where 1=1
+           <if test="param!=null"> ${param} </if> 
+           <if test="id!=null"> and id=${id} </if> 
+           <if test="saver!=null"> and saver=${saver} </if> 
+           <if test="content!=null"> and content=${content} </if> 
+           <if test="pid!=null"> and pid=${pid} </if> 
+           <if test="tablename!=null"> and tablename=${tablename} </if> 
+           <if test="infotitle!=null"> and infotitle=${infotitle} </if> 
+           <if test="savetime!=null"> and savetime=${savetime} </if> 
+           <if test="pf!=null"> and pf=${pf} </if> 
+           <if test="remo!=null"> and remo=${remo} </if>
+        order by 
+        ${orderby}
+	</select>
+
+    
+    <insert id="insert">
+    insert into Pinlun(
+      saver,content,pid,tablename,infotitle,savetime,pf,remo
+    )
+    values(
+      #{saver,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{pid,jdbcType=VARCHAR},#{tablename,jdbcType=VARCHAR},#{infotitle,jdbcType=VARCHAR},#{savetime,jdbcType=VARCHAR},#{pf,jdbcType=VARCHAR},#{remo,jdbcType=VARCHAR}
+    )
+    </insert>
+     
+     <update id="update">
+	     update Pinlun
+	     <trim prefix="set" suffixOverrides=",">   
+           <if test="saver!=null">saver=#{saver},</if> 
+           <if test="content!=null">content=#{content},</if> 
+           <if test="pid!=null">pid=#{pid},</if> 
+           <if test="tablename!=null">tablename=#{tablename},</if> 
+           <if test="infotitle!=null">infotitle=#{infotitle},</if> 
+           <if test="savetime!=null">savetime=#{savetime},</if> 
+           <if test="pf!=null">pf=#{pf},</if> 
+           <if test="remo!=null">remo=#{remo},</if> 
+	     </trim>
+         where id=#{id}
+    </update>
+    
+    <delete id="delete">
+    delete from Pinlun where id=#{id}
+    </delete>
+
+</mapper>

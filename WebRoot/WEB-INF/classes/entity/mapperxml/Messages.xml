@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.mapper.MessagesMapper">
+   
+    <resultMap type="Messages" id="MessagesResultMap">
+        <id property="id" column="id"/>
+        <result property="uname" column="uname"/> 
+        <result property="filename" column="filename"/> 
+        <result property="cont" column="cont"/> 
+        <result property="recont" column="recont"/> 
+        <result property="savetime" column="savetime"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="MessagesResultMap" resultType="Messages">
+        select * from Messages  
+    </select>
+
+	<select id="findByParam" resultType="java.util.Map" parameterType="java.util.Map" statementType="STATEMENT">
+		select ${cols} from ${tablename}  where 1=1
+           <if test="param!=null"> ${param} </if> 
+           <if test="id!=null"> and id=${id} </if> 
+           <if test="uname!=null"> and uname=${uname} </if> 
+           <if test="filename!=null"> and filename=${filename} </if> 
+           <if test="cont!=null"> and cont=${cont} </if> 
+           <if test="recont!=null"> and recont=${recont} </if> 
+           <if test="savetime!=null"> and savetime=${savetime} </if>
+        order by 
+        ${orderby}
+	</select>
+
+    
+    <insert id="insert">
+    insert into Messages(
+      uname,filename,cont,recont,savetime
+    )
+    values(
+      #{uname,jdbcType=VARCHAR},#{filename,jdbcType=VARCHAR},#{cont,jdbcType=VARCHAR},#{recont,jdbcType=VARCHAR},#{savetime,jdbcType=VARCHAR}
+    )
+    </insert>
+     
+     <update id="update">
+	     update Messages
+	     <trim prefix="set" suffixOverrides=",">   
+           <if test="uname!=null">uname=#{uname},</if> 
+           <if test="filename!=null">filename=#{filename},</if> 
+           <if test="cont!=null">cont=#{cont},</if> 
+           <if test="recont!=null">recont=#{recont},</if> 
+           <if test="savetime!=null">savetime=#{savetime},</if> 
+	     </trim>
+         where id=#{id}
+    </update>
+    
+    <delete id="delete">
+    delete from Messages where id=#{id}
+    </delete>
+
+</mapper>

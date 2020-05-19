@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.mapper.ProsMapper">
+   
+    <resultMap type="Pros" id="ProsResultMap">
+        <id property="id" column="id"/>
+        <result property="sname" column="sname"/> 
+        <result property="city" column="city"/> 
+        <result property="addrs" column="addrs"/> 
+        <result property="tprice" column="tprice"/> 
+        <result property="hprice" column="hprice"/> 
+        <result property="fprice" column="fprice"/> 
+        <result property="jprice" column="jprice"/> 
+        <result property="wprice" column="wprice"/> 
+        <result property="remo" column="remo"/> 
+        <result property="filename" column="filename"/> 
+        <result property="guide" column="guide"/> 
+        <result property="savetime" column="savetime"/> 
+        <result property="guidekey" column="guidekey"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="ProsResultMap" resultType="Pros">
+        select * from Pros  
+    </select>
+
+	<select id="findByParam" resultType="java.util.Map" parameterType="java.util.Map" statementType="STATEMENT">
+		select ${cols} from ${tablename}  where 1=1
+           <if test="param!=null"> ${param} </if> 
+           <if test="id!=null"> and id=${id} </if> 
+           <if test="sname!=null"> and sname=${sname} </if> 
+           <if test="city!=null"> and city=${city} </if> 
+           <if test="addrs!=null"> and addrs=${addrs} </if> 
+           <if test="tprice!=null"> and tprice=${tprice} </if> 
+           <if test="hprice!=null"> and hprice=${hprice} </if> 
+           <if test="fprice!=null"> and fprice=${fprice} </if> 
+           <if test="jprice!=null"> and jprice=${jprice} </if> 
+           <if test="wprice!=null"> and wprice=${wprice} </if> 
+           <if test="remo!=null"> and remo=${remo} </if> 
+           <if test="filename!=null"> and filename=${filename} </if> 
+           <if test="guide!=null"> and guide=${guide} </if> 
+           <if test="savetime!=null"> and savetime=${savetime} </if> 
+           <if test="guidekey!=null"> and guidekey=${guidekey} </if>
+        order by 
+        ${orderby}
+	</select>
+
+    
+    <insert id="insert">
+    insert into Pros(
+      sname,city,addrs,tprice,hprice,fprice,jprice,wprice,remo,filename,guide,savetime,guidekey
+    )
+    values(
+      #{sname,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{addrs,jdbcType=VARCHAR},#{tprice,jdbcType=VARCHAR},#{hprice,jdbcType=VARCHAR},#{fprice,jdbcType=VARCHAR},#{jprice,jdbcType=VARCHAR},#{wprice,jdbcType=VARCHAR},#{remo,jdbcType=VARCHAR},#{filename,jdbcType=VARCHAR},#{guide,jdbcType=VARCHAR},#{savetime,jdbcType=VARCHAR},#{guidekey,jdbcType=VARCHAR}
+    )
+    </insert>
+     
+     <update id="update">
+	     update Pros
+	     <trim prefix="set" suffixOverrides=",">   
+           <if test="sname!=null">sname=#{sname},</if> 
+           <if test="city!=null">city=#{city},</if> 
+           <if test="addrs!=null">addrs=#{addrs},</if> 
+           <if test="tprice!=null">tprice=#{tprice},</if> 
+           <if test="hprice!=null">hprice=#{hprice},</if> 
+           <if test="fprice!=null">fprice=#{fprice},</if> 
+           <if test="jprice!=null">jprice=#{jprice},</if> 
+           <if test="wprice!=null">wprice=#{wprice},</if> 
+           <if test="remo!=null">remo=#{remo},</if> 
+           <if test="filename!=null">filename=#{filename},</if> 
+           <if test="guide!=null">guide=#{guide},</if> 
+           <if test="savetime!=null">savetime=#{savetime},</if> 
+           <if test="guidekey!=null">guidekey=#{guidekey},</if> 
+	     </trim>
+         where id=#{id}
+    </update>
+    
+    <delete id="delete">
+    delete from Pros where id=#{id}
+    </delete>
+
+</mapper>

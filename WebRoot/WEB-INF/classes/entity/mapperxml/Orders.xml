@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="entity.mapper.OrdersMapper">
+   
+    <resultMap type="Orders" id="OrdersResultMap">
+        <id property="id" column="id"/>
+        <result property="uname" column="uname"/> 
+        <result property="tname" column="tname"/> 
+        <result property="sfid" column="sfid"/> 
+        <result property="tel" column="tel"/> 
+        <result property="dname" column="dname"/> 
+        <result property="pid" column="pid"/> 
+        <result property="tprice" column="tprice"/> 
+        <result property="jt" column="jt"/> 
+        <result property="jtprice" column="jtprice"/> 
+        <result property="jd" column="jd"/> 
+        <result property="jdprice" column="jdprice"/> 
+        <result property="fkstatus" column="fkstatus"/> 
+        <result property="acct" column="acct"/> 
+        <result property="apass" column="apass"/> 
+        <result property="status" column="status"/> 
+        <result property="muname" column="muname"/> 
+        <result property="tgroupn" column="tgroupn"/> 
+        <result property="tgroupnkey" column="tgroupnkey"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="OrdersResultMap" resultType="Orders">
+        select * from Orders  
+    </select>
+
+	<select id="findByParam" resultType="java.util.Map" parameterType="java.util.Map" statementType="STATEMENT">
+		select ${cols} from ${tablename}  where 1=1
+           <if test="param!=null"> ${param} </if> 
+           <if test="id!=null"> and id=${id} </if> 
+           <if test="uname!=null"> and uname=${uname} </if> 
+           <if test="tname!=null"> and tname=${tname} </if> 
+           <if test="sfid!=null"> and sfid=${sfid} </if> 
+           <if test="tel!=null"> and tel=${tel} </if> 
+           <if test="dname!=null"> and dname=${dname} </if> 
+           <if test="pid!=null"> and pid=${pid} </if> 
+           <if test="tprice!=null"> and tprice=${tprice} </if> 
+           <if test="jt!=null"> and jt=${jt} </if> 
+           <if test="jtprice!=null"> and jtprice=${jtprice} </if> 
+           <if test="jd!=null"> and jd=${jd} </if> 
+           <if test="jdprice!=null"> and jdprice=${jdprice} </if> 
+           <if test="fkstatus!=null"> and fkstatus=${fkstatus} </if> 
+           <if test="acct!=null"> and acct=${acct} </if> 
+           <if test="apass!=null"> and apass=${apass} </if> 
+           <if test="status!=null"> and status=${status} </if> 
+           <if test="muname!=null"> and muname=${muname} </if> 
+           <if test="tgroupn!=null"> and tgroupn=${tgroupn} </if> 
+           <if test="tgroupnkey!=null"> and tgroupnkey=${tgroupnkey} </if>
+        order by 
+        ${orderby}
+	</select>
+
+    
+    <insert id="insert">
+    insert into Orders(
+      uname,tname,sfid,tel,dname,pid,tprice,jt,jtprice,jd,jdprice,fkstatus,acct,apass,status,muname,tgroupn,tgroupnkey
+    )
+    values(
+      #{uname,jdbcType=VARCHAR},#{tname,jdbcType=VARCHAR},#{sfid,jdbcType=VARCHAR},#{tel,jdbcType=VARCHAR},#{dname,jdbcType=VARCHAR},#{pid,jdbcType=VARCHAR},#{tprice,jdbcType=VARCHAR},#{jt,jdbcType=VARCHAR},#{jtprice,jdbcType=VARCHAR},#{jd,jdbcType=VARCHAR},#{jdprice,jdbcType=VARCHAR},#{fkstatus,jdbcType=VARCHAR},#{acct,jdbcType=VARCHAR},#{apass,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},#{muname,jdbcType=VARCHAR},#{tgroupn,jdbcType=VARCHAR},#{tgroupnkey,jdbcType=VARCHAR}
+    )
+    </insert>
+     
+     <update id="update">
+	     update Orders
+	     <trim prefix="set" suffixOverrides=",">   
+           <if test="uname!=null">uname=#{uname},</if> 
+           <if test="tname!=null">tname=#{tname},</if> 
+           <if test="sfid!=null">sfid=#{sfid},</if> 
+           <if test="tel!=null">tel=#{tel},</if> 
+           <if test="dname!=null">dname=#{dname},</if> 
+           <if test="pid!=null">pid=#{pid},</if> 
+           <if test="tprice!=null">tprice=#{tprice},</if> 
+           <if test="jt!=null">jt=#{jt},</if> 
+           <if test="jtprice!=null">jtprice=#{jtprice},</if> 
+           <if test="jd!=null">jd=#{jd},</if> 
+           <if test="jdprice!=null">jdprice=#{jdprice},</if> 
+           <if test="fkstatus!=null">fkstatus=#{fkstatus},</if> 
+           <if test="acct!=null">acct=#{acct},</if> 
+           <if test="apass!=null">apass=#{apass},</if> 
+           <if test="status!=null">status=#{status},</if> 
+           <if test="muname!=null">muname=#{muname},</if> 
+           <if test="tgroupn!=null">tgroupn=#{tgroupn},</if> 
+           <if test="tgroupnkey!=null">tgroupnkey=#{tgroupnkey},</if> 
+	     </trim>
+         where id=#{id}
+    </update>
+    
+    <delete id="delete">
+    delete from Orders where id=#{id}
+    </delete>
+
+</mapper>
